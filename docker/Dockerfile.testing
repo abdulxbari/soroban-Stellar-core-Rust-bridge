@@ -1,5 +1,5 @@
 # Build stage, includes everything needed to build.
-FROM ubuntu:focal as buildstage
+FROM ubuntu:20.04 as buildstage
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get -y install iproute2 procps lsb-release \
@@ -27,7 +27,7 @@ RUN sh -c 'make -j $(nproc)'
 RUN make install
 
 # Deploy stage, only includes stuff needed to run.
-FROM ubuntu:focal
+FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get -y install libunwind8 postgresql curl sqlite iproute2 libc++abi1-12 libc++1-12
